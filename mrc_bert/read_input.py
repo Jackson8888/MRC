@@ -8,7 +8,7 @@ InputFeatures
 """
 import json
 import tensorflow as tf
-from bert import tokenization
+from mrc_bert.bert import tokenization
 
 
 def read_squad_examples(input_file, is_training):

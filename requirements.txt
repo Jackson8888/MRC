@@ -1,0 +1,6 @@
+jinja2
+nltk
+pyqt5==5.10.1
+numpy
+six
+tensorflow==1.12.0

@@ -23,13 +23,13 @@ import json
 import math
 import os
 import random
-from bert import modeling
-from bert import tokenization
+from mrc_bert.bert import modeling
+from mrc_bert.bert import tokenization
 import six
 import tensorflow as tf
-from read_input import read_squad_examples
-from process_feature import input_fn_builder, convert_examples_to_features, FeatureWriter
-from model import model_fn_builder
+from mrc_bert.read_input import read_squad_examples
+from mrc_bert.process_feature import input_fn_builder, convert_examples_to_features, FeatureWriter
+from mrc_bert.model import model_fn_builder
 
 flags = tf.flags
 

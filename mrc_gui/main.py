@@ -9,13 +9,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtWidgets, QtGui
 import time
-import pyaudio
 import wave
 from concurrent.futures import ThreadPoolExecutor
 import threading
-from gui import *
+from mrc_gui.gui import *
 import json
-from xf import XF_text, XF_Speak
+# from mrc_gui.xf import XF_text, XF_Speak
 
 class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
 
@@ -35,7 +34,7 @@ class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
 
         self.show_article()
 
-        self.pushButton_ok.setEnabled(False)
+        self.pushButton_ok.setEnabled(True)
 
     def start(self):
         #self.start_time = time.time()
@@ -53,7 +52,7 @@ class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
         self.pushButton_end.setEnabled(False)
 
         # 显示询问
-        self.question = XF_text("output.wav", 16000)
+        # self.question = XF_text("output.wav", 16000)
         self.textEdit_question.setText(self.question)
         self.pushButton_ok.setEnabled(True)
 
@@ -147,41 +146,43 @@ class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
 
 
     def speak(self):
-        XF_Speak(self.answer)
+        # XF_Speak(self.answer)
+        print(self.answer)
+        return self.answer
 
     def timerEvent(self, event):
         end_time = time.strftime("%H:%M:%S")
         self.label_question.setText(end_time)
 
-    def record(self):
-        self.signal = True
-        CHUNK = 256
-        FORMAT = pyaudio.paInt16
-        CHANNELS = 1
-        RATE = 11025
-
-        p = pyaudio.PyAudio()
-     
-        stream = p.open(format=FORMAT,
-                        channels=CHANNELS,
-                        rate=RATE,
-                        input=True,
-                        frames_per_buffer=CHUNK)
-     
-        frames = []
-        while self.signal:
-            data = stream.read(CHUNK)
-            frames.append(data)
-
-        stream.stop_stream()
-        stream.close()
-        p.terminate()
-     
-        wf = wave.open("output.wav", 'wb')
-        wf.setnchannels(CHANNELS)
-        wf.setsampwidth(p.get_sample_size(FORMAT))
-        wf.setframerate(RATE)
-        wf.writeframes(b''.join(frames))
+    # def record(self):
+    #     self.signal = True
+    #     CHUNK = 256
+    #     FORMAT = pyaudio.paInt16
+    #     CHANNELS = 1
+    #     RATE = 11025
+    #
+    #     p = pyaudio.PyAudio()
+    #
+    #     stream = p.open(format=FORMAT,
+    #                     channels=CHANNELS,
+    #                     rate=RATE,
+    #                     input=True,
+    #                     frames_per_buffer=CHUNK)
+    #
+    #     frames = []
+    #     while self.signal:
+    #         data = stream.read(CHUNK)
+    #         frames.append(data)
+    #
+    #     stream.stop_stream()
+    #     stream.close()
+    #     p.terminate()
+    #
+    #     wf = wave.open("output.wav", 'wb')
+    #     wf.setnchannels(CHANNELS)
+    #     wf.setsampwidth(p.get_sample_size(FORMAT))
+    #     wf.setframerate(RATE)
+    #     wf.writeframes(b''.join(frames))
 
 
     def show_article(self, start=None, end=None):
@@ -228,20 +229,20 @@ class Thread(QThread):
         super(Thread, self).__init__()
     
     def run(self):
-        os.system("python D:\\ML_DL\\nlp\\mrc_bert\\run_mrc.py \
-          --vocab_file=D:\\ML_DL\\nlp\\mrc_bert\\chinese_L-12_H-768_A-12/vocab.txt \
-          --bert_config_file=D:\\ML_DL\\nlp\\mrc_bert\\chinese_L-12_H-768_A-12/bert_config.json \
-          --init_checkpoint=D:\\ML_DL\\nlp\\mrc_bert\\chinese_L-12_H-768_A-12/bert_model.ckpt \
+        os.system("python /Users/baijunjie/PycharmProjects/MRC/mrc_bert/run_mrc.py \
+          --vocab_file=/Users/baijunjie/PycharmProjects/MRC/mrc_gui/mrc_bert/chinese_L-12_H-768_A-12/vocab.txt \
+          --bert_config_file=/Users/baijunjie/PycharmProjects/MRC/mrc_gui/mrc_bert/chinese_L-12_H-768_A-12/bert_config.json \
+          --init_checkpoint=/Users/baijunjie/PycharmProjects/MRC/mrc_gui/mrc_bert/chinese_L-12_H-768_A-12/bert_model.ckpt \
           --do_train=False \
           --do_predict=True \
-          --predict_file=D:\\ML_DL\\nlp\\mrc_gui\\eval.json \
+          --predict_file=/Users/baijunjie/PycharmProjects/MRC/mrc_gui/eval.json \
           --train_batch_size=6 \
           --predict_batch_size=4 \
           --learning_rate=3e-5 \
           --num_train_epochs=2.0 \
           --max_seq_length=384 \
           --doc_stride=128 \
-          --output_dir=D:\\ML_DL\\nlp\\mrc_gui")
+          --output_dir=/Users/baijunjie/PycharmProjects/MRC/mrc_gui")
         
         self.trigger.emit()
 

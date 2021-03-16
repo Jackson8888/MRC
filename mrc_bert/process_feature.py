@@ -6,7 +6,7 @@
 import collections
 import six
 import tensorflow as tf
-from bert import tokenization
+from mrc_bert.bert import tokenization
 
 
 class InputFeatures(object):

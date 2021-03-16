@@ -18,9 +18,10 @@ from __future__ import print_function
 
 import os
 import tempfile
-import tokenization
 import six
 import tensorflow as tf
+
+from mrc_bert.bert import tokenization
 
 
 class TokenizationTest(tf.test.TestCase):

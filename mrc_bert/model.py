@@ -3,7 +3,7 @@
 创建模型
 """
 import tensorflow as tf
-from bert import modeling, optimization
+from mrc_bert.bert import modeling, optimization
 
 def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
                  use_one_hot_embeddings):

@@ -2,26 +2,26 @@
   "version": "v1.0",
   "data": [
     {
+      "title": "title",
+      "id": "DEV_0",
       "paragraphs": [
         {
-          "id": "MRC",
           "context": "董彦成坐在我的左边，李思睿坐在我的右边。王瀚尉坐在我的对面。\n",
           "qas": [
             {
-              "question": "谁坐在哪儿？",
-              "id": "QUERY",
               "answers": [
                 {
-                  "text": "",
-                  "answer_start": 0
+                  "answer_start": 0,
+                  "text": ""
                 }
-              ]
+              ],
+              "question": "撒地方撒地方撒",
+              "id": "QUERY"
             }
-          ]
+          ],
+          "id": "MRC"
         }
-      ],
-      "id": "DEV_0",
-      "title": "title"
+      ]
     }
   ]
 }
